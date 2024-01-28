@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"
+             x:Class="WorkoutApp.MVVM.View.WorkoutContent"
+             x:DataType="viewmodel:WorkoutContentViewModel"           
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="{Binding Workout.Name}" FontSize="Title" HorizontalOptions="CenterAndExpand" Margin="10, 75" TextColor="#e8f3ee" />
+
+            <TableView Intent="Form">
+                <TableRoot>
+                    <TableSection>
+                        <EntryCell Text="{Binding Workout.Name}"  />
+                        <EntryCell Text ="{Binding Workout.Description}" />
+                        <EntryCell Text ="{Binding Workout.Sets}" />
+                        <EntryCell Text ="{Binding Workout.Reps}" />
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Button VerticalOptions="EndAndExpand"
+                 Margin="10" Text="Save Information" 
+                 TextColor="#e8f3ee" 
+                 Command="{Binding SaveInfoCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

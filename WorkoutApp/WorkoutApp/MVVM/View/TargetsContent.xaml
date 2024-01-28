@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutApp.MVVM.View.TargetsContent"
+             Title="TargetsContent"
+             xmlns:models="clr-namespace:WorkoutApp.MVVM.Model"
+             xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"    
+             x:DataType="viewmodel:TargetsContentViewModel">
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <CollectionView ItemsSource="{Binding WorkoutTargets}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:WorkoutTarget}">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItemView  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=DeleteTargetCommand}"
+                                                    CommandParameter="{Binding .}"
+                                                    VerticalOptions="CenterAndExpand">
+                                        <Frame BackgroundColor="Red" MaximumWidthRequest="75">
+                                            <Image Source="delete.png" />
+                                            
+                                        </Frame>
+                                    </SwipeItemView>
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <Grid> 
+                            <Frame BackgroundColor="LightBlue" Margin="1" Padding="10" CornerRadius="10">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Text="{Binding Name}" FontAttributes="Bold" FontSize="Title" TextColor="DarkBlue" />
+                                    <Label Text="{Binding RestIntervals}" FontSize="Subtitle" TextColor="DarkBlue" Grid.Row="1"/>
+                                </Grid>
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=SelectTargetWorkoutCommand}"
+                                         CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                </Frame>
+                                
+                            </Grid> 
+
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Add Target" Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=AddTargetCommand}" HorizontalOptions="Center" VerticalOptions="StartAndExpand" Margin="10"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
