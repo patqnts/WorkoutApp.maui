@@ -4,7 +4,8 @@
              xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"
              x:Class="WorkoutApp.MVVM.View.WorkoutContent"
              x:DataType="viewmodel:WorkoutContentViewModel"           
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             Background="#0E1011">
     <ContentPage.Content>
         <StackLayout>
             <Label Text="{Binding Workout.Name}" FontSize="Title" HorizontalOptions="CenterAndExpand" Margin="10, 75" TextColor="#e8f3ee" />
