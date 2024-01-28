@@ -5,7 +5,8 @@
              Title="TargetsContent"
              xmlns:models="clr-namespace:WorkoutApp.MVVM.Model"
              xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"    
-             x:DataType="viewmodel:TargetsContentViewModel">
+             x:DataType="viewmodel:TargetsContentViewModel"
+             Background="#0E1011">
     <ScrollView>
         <VerticalStackLayout>
 

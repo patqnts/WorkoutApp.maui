@@ -6,7 +6,8 @@
              xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"
              x:DataType="viewmodel:WorkoutListViewModel"
              Shell.NavBarIsVisible="False"
-             Title="{Binding WorkoutTarget.Name}">
+             Title="{Binding WorkoutTarget.Name}"
+             Background="#0E1011">
     <ScrollView>
         <StackLayout>
             <Button Text="Add Workout" Command="{Binding AddWorkoutCommand}" HorizontalOptions="End" VerticalOptions="Start" Margin="10"/>
