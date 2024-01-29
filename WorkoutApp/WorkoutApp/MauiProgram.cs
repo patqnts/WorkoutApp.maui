@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using WorkoutApp.Dal;
 using WorkoutApp.MVVM.View;
+using WorkoutApp.MVVM.View.Content;
 using WorkoutApp.MVVM.ViewModel;
 
 namespace WorkoutApp
@@ -21,8 +22,11 @@ namespace WorkoutApp
                 });
             builder.Services.AddSingleton<localdbDa>();
 
-            builder.Services.AddSingleton<TargetsContent>();
-            builder.Services.AddSingleton<TargetsContentViewModel>();
+            builder.Services.AddTransient<TargetsContent>();
+            builder.Services.AddTransient<TargetsContentViewModel>();
+
+            builder.Services.AddTransient<AddTargetViewModel>();
+            builder.Services.AddTransient<AddTarget>();
 
             builder.Services.AddTransient<WorkoutListViewModel>();
             builder.Services.AddTransient<WorkoutList>();

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"
+             x:Class="WorkoutApp.MVVM.View.Content.AddTarget"
+             x:DataType="viewmodel:AddTargetViewModel"
+             Shell.NavBarIsVisible="False">
+    
+    <StackLayout>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Button VerticalOptions="Start"
+                    Margin="10"
+                    BackgroundColor="Transparent"
+                    Command="{Binding CancelCommand}"
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    ImageSource="close.png"                
+                    />
+            
+            <Button HorizontalOptions="End"
+                    Margin="10"  
+                    BackgroundColor="Transparent"
+                    Command="{Binding ToggleCommand}"
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    ImageSource="done.png"/>
+
+            <Label Text="{Binding WorkoutTarget.Name}" 
+                   FontSize="Title" 
+                   HorizontalOptions="CenterAndExpand" 
+                   Margin="10" 
+                   TextColor="#e8f3ee" 
+                   Grid.Row="1"
+                   Grid.Column="1"/>
+        </Grid>
+        <TableView Intent="Form">
+            <TableRoot>
+                <TableSection>
+                    <EntryCell Text="{Binding WorkoutTarget.Name}"  />
+                    <EntryCell Text="{Binding WorkoutTarget.RestIntervals}"/>
+                </TableSection>
+            </TableRoot>
+        </TableView>
+    </StackLayout>
+</ContentPage>

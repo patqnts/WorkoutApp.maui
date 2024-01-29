@@ -7,6 +7,7 @@ using WorkoutApp.MVVM.View;
 
 namespace WorkoutApp.MVVM.ViewModel
 {
+    [QueryProperty(nameof(WorkoutTarget), "WorkoutTarget")]
     public partial class TargetsContentViewModel : ObservableObject
     {
         private readonly localdbDa localdbDa;
@@ -42,15 +43,38 @@ namespace WorkoutApp.MVVM.ViewModel
         }
 
         [RelayCommand]
-        async Task AddTarget()
-        {     
-            await AddTargetTest();
+        async Task AddTarget(WorkoutTarget wt)
+        {
+            bool isEdit = false;
+            bool isAdd = false;
+            if (wt != null)
+            {
+                isEdit = true;
+                wt = await localdbDa.GetTargetWorkoutById(wt.TargetId);
+                await Shell.Current.GoToAsync(nameof(AddTarget), true, new Dictionary<string, object>
+                {
+                    {"WorkoutTarget", wt },
+                    {"IsEdit", isEdit }
+                });
+            }
+            else
+            {
+                await Shell.Current.GoToAsync(nameof(AddTarget), true, new Dictionary<string, object>
+                {
+                    {"IsAdd", isAdd }
+                });  
+            } 
         }
 
         [RelayCommand]
         async Task DeleteTarget(WorkoutTarget wt)
         {
             if (wt == null) return;
+
+            bool userConfirmed = await Application.Current.MainPage.DisplayAlert("Confirm Deletion", "Are you sure you want to delete this target?", "Yes", "No");
+
+            if (!userConfirmed)
+                return;
 
             List<Workout> wo = await localdbDa.GetWorkoutsById(wt.TargetId);
 
@@ -64,20 +88,7 @@ namespace WorkoutApp.MVVM.ViewModel
 
             await this.localdbDa.DeleteTarget(wt);
             WorkoutTargets.Remove(wt);
-        }
-
-        private async Task AddTargetTest()
-        {
-            Random r = new Random();
-            var addedtarget = await localdbDa.CreateTarget(new WorkoutTarget
-            {
-                Name = $"This is pat workout {r.Next(1,500)}",
-                RestIntervals = 60
-            });
-            WorkoutTargets.Add(addedtarget);
-
-        }
-    
+        }    
 
         [RelayCommand]
         private async Task SelectTargetWorkout(WorkoutTarget wt)

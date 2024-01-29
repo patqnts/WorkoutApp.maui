@@ -21,7 +21,7 @@ namespace WorkoutApp.Dal
             return await connection.Table<WorkoutTarget>().ToListAsync();
         }
 
-        public async Task<WorkoutTarget> GetTargetWorkoutsById(int id)
+        public async Task<WorkoutTarget> GetTargetWorkoutById(int id)
         {
             return await connection.Table<WorkoutTarget>().Where(x => x.TargetId == id).FirstOrDefaultAsync();
         }
