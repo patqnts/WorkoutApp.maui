@@ -16,15 +16,21 @@ namespace WorkoutApp.MVVM.Model
         public int WorkoutTargetId { get; set; }
 
         [Column("workout_description")]
-        public string Description { get; set; } = "This workout has no description";
+        public string Description { get; set; }
 
         [Column("imgsrc")]
-        public string ImageSource { get; set; } = string.Empty;
+        public ImageSource ImageSource { get => Description;}
 
         [Column("reps")]
         public int Reps { get; set; } = 8;
 
         [Column("sets")]
         public int Sets { get; set; } = 4;
+        
+        [Column("rest_time")]
+        public int RestTime { get; set; } = 60;
+
+        [Column("index")]
+        public int Index { get; set; } = -1;
     }
 }

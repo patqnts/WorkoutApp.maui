@@ -14,7 +14,7 @@
     <Color x:Key="Tertiary">#898F9F</Color>
 
     <Color x:Key="White">White</Color>
-    <Color x:Key="Black">Black</Color>
+    <Color x:Key="Black">#23272A</Color>
     <Color x:Key="Magenta">#D600AA</Color>
     <Color x:Key="MidnightBlue">#898F9F</Color>
     <Color x:Key="OffBlack">#1f1f1f</Color>

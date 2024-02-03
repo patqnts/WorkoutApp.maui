@@ -27,11 +27,22 @@ namespace WorkoutApp.MVVM.ViewModel
 
         private async Task LoadTarget()
         {
-            var wo = await localdbDa.GetWorkoutsById(WorkoutTarget.TargetId);
+            try
+            {
+                var wo = await localdbDa.GetWorkoutsById(WorkoutTarget.TargetId);
 
-            Workout = new(wo);
+                if(wo != null)
+                {
+                    Workout = new(wo);
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                
+            }
+            
         }
-
 
         [RelayCommand]
         async Task DeleteWorkout(Workout workout)
@@ -51,12 +62,15 @@ namespace WorkoutApp.MVVM.ViewModel
         [RelayCommand]
         async Task AddWorkout()
         {
-            await localdbDa.Create(new Workout
+            var aw = await localdbDa.Create(new Workout
             {
                 WorkoutTargetId = WorkoutTarget.TargetId,
+                Index = Workout.Count + 1
             });
 
-            await LoadTarget();
+
+            Workout.Add(aw);
+            //await LoadTarget();
         }
 
         [RelayCommand]
@@ -69,8 +83,44 @@ namespace WorkoutApp.MVVM.ViewModel
 
             await Shell.Current.GoToAsync(nameof(WorkoutContent), true, new Dictionary<string, object>
             {
-                {"Workout", workout }
+                {"Workout", workout },
+                {"ImageString", workout.Description }
             });
+        }
+
+        [RelayCommand]
+        public async Task Play()
+        {
+
+            await ReorderItems();
+
+            await Shell.Current.GoToAsync(nameof(PlayWorkout), true, new Dictionary<string, object>
+            {
+                {"WorkoutTarget", WorkoutTarget },
+                {"Workout", Workout },
+                {"CurrentWorkout", WorkoutTarget.Workouts.FirstOrDefault() }
+            });
+        }
+
+        [RelayCommand]
+        public async Task Back()
+        {
+            await Shell.Current.GoToAsync("..");
+        }
+
+        private async Task ReorderItems()
+        {
+            if (Workout.Count == 0) { return; }
+
+            foreach (Workout workout in Workout)
+            {
+                workout.Index = Workout.IndexOf(workout);
+                await localdbDa.Update(workout);
+            }
+
+            var wo = await localdbDa.GetWorkoutsById(WorkoutTarget.TargetId);
+            
+            Workout = new(wo);
         }
     }
 }

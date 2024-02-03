@@ -48,10 +48,14 @@ namespace WorkoutApp.Dal
             return await connection.Table<Workout>().ToListAsync();
         }
 
-        public async Task<List<Workout>>GetWorkoutsById(int id)
+        public async Task<List<Workout>> GetWorkoutsById(int id)
         {
-            return await connection.Table<Workout>().Where(x => x.WorkoutTargetId == id).ToListAsync();
+            return await connection.Table<Workout>()
+                                   .Where(x => x.WorkoutTargetId == id)
+                                   .OrderBy(x => x.Index)
+                                   .ToListAsync();
         }
+
 
         public async Task<Workout> Create(Workout workout)
         {

@@ -9,4 +9,5 @@ public partial class WorkoutList : ContentPage
 		InitializeComponent();
 		BindingContext = vm;
 	}
+
 }

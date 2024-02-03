@@ -2,11 +2,11 @@ using WorkoutApp.MVVM.ViewModel;
 
 namespace WorkoutApp.MVVM.View;
 
-public partial class WorkoutContent : ContentPage
+public partial class PlayWorkout : ContentPage
 {
-	public WorkoutContent(WorkoutContentViewModel vm)
+	public PlayWorkout(PlayWorkoutViewModel vm)
 	{
 		InitializeComponent();
 		BindingContext = vm;
-	} 
+	}
 }

@@ -18,17 +18,15 @@ namespace WorkoutApp.MVVM.ViewModel
         }
 
         [ObservableProperty]
-        ObservableCollection<WorkoutTarget> workoutTargets = new();
+        ObservableCollection<WorkoutTarget> workoutTarget = new();
+
         public async Task LoadTargets()
         {
             var loadedTargets = await localdbDa.GetTargetWorkouts();
 
-            WorkoutTargets.Clear();
+            WorkoutTarget.Clear();
 
-            foreach (var target in loadedTargets)
-            {
-                WorkoutTargets.Add(target);
-            }
+            WorkoutTarget = new(loadedTargets);
         }
         async Task ClearTargets()
         {
@@ -36,10 +34,10 @@ namespace WorkoutApp.MVVM.ViewModel
 
             foreach (var target in loadedTargets)
             {
-                WorkoutTargets.Remove(target);
+                WorkoutTarget.Remove(target);
             }
 
-            WorkoutTargets.Clear();
+            WorkoutTarget.Clear();
         }
 
         [RelayCommand]
@@ -87,7 +85,7 @@ namespace WorkoutApp.MVVM.ViewModel
             }
 
             await this.localdbDa.DeleteTarget(wt);
-            WorkoutTargets.Remove(wt);
+            WorkoutTarget.Remove(wt);
         }    
 
         [RelayCommand]
@@ -101,6 +99,7 @@ namespace WorkoutApp.MVVM.ViewModel
                 }
 
                 wt.Workouts = new(await localdbDa.GetWorkoutsById(wt.TargetId));
+                
                 await Shell.Current.GoToAsync(nameof(WorkoutList), true, new Dictionary<string, object>
                 {
                     {"Workout", wt.Workouts },

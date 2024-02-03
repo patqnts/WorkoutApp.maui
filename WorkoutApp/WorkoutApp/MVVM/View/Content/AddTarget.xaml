@@ -4,7 +4,8 @@
              xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"
              x:Class="WorkoutApp.MVVM.View.Content.AddTarget"
              x:DataType="viewmodel:AddTargetViewModel"
-             Shell.NavBarIsVisible="False">
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#23272A">
     
     <StackLayout>
         <Grid>
@@ -48,7 +49,7 @@
             <TableRoot>
                 <TableSection>
                     <EntryCell Text="{Binding WorkoutTarget.Name}"  />
-                    <EntryCell Text="{Binding WorkoutTarget.RestIntervals}"/>
+                    
                 </TableSection>
             </TableRoot>
         </TableView>

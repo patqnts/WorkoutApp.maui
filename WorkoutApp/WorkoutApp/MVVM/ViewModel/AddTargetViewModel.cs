@@ -23,7 +23,6 @@ namespace WorkoutApp.MVVM.ViewModel
         private WorkoutTarget workoutTarget = new WorkoutTarget()
         {
             Name = "Workout Target Name",
-            RestIntervals = 60
         };
 
         [ObservableProperty]
@@ -39,25 +38,22 @@ namespace WorkoutApp.MVVM.ViewModel
         {
             await localdb.CreateTarget(WorkoutTarget);
 
-            ObservableCollection<WorkoutTarget> wo = new(await this.localdb.GetTargetWorkouts());
-
-            await Shell.Current.GoToAsync(nameof(TargetsContent), true, new Dictionary<string, object>
-            {
-                {"WorkoutTarget", wo }
-            });
+            await GoBack();
         }
 
         [RelayCommand]
         private async Task EditTarget()
         {
+            List<Workout> wo = await localdb.GetWorkoutsById(WorkoutTarget.TargetId);
+             
+            if(wo.Any())
+            {
+                WorkoutTarget.RestIntervals = wo.Count;
+            }
+           
             await localdb.UpdateTarget(WorkoutTarget);
 
-            ObservableCollection<WorkoutTarget> wo = new(await this.localdb.GetTargetWorkouts());
-
-            await Shell.Current.GoToAsync(nameof(TargetsContent), true, new Dictionary<string, object>
-            {
-                {"WorkoutTarget", wo }
-            });
+            await GoBack();
         }
 
         [RelayCommand]
@@ -79,6 +75,16 @@ namespace WorkoutApp.MVVM.ViewModel
                 SaveTargetCommand.Execute(null);
             }
             // Add any additional logic as needed
+        }
+
+        async Task GoBack()
+        {
+            ObservableCollection<WorkoutTarget> wo = new(await this.localdb.GetTargetWorkouts());
+
+            await Shell.Current.GoToAsync("..", true, new Dictionary<string, object>
+            {
+                {"WorkoutTarget", wo }
+            });
         }
     }
 }

@@ -17,6 +17,6 @@ namespace WorkoutApp.MVVM.Model
         public ObservableCollection<Workout> Workouts { get; set; }
 
         [Column("rest_intervals")]
-        public float RestIntervals { get; set; } = -1;
+        public int RestIntervals { get; set; } = -1;
     }
 }

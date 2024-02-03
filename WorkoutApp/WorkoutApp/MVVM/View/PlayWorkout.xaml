@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="WorkoutApp.MVVM.View.PlayWorkout"
+             xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"
+             xmlns:converters="clr-namespace:WorkoutApp.MVVM.Converter"
+             x:DataType="viewmodel:PlayWorkoutViewModel"
+             Title="PlayWorkout"
+             BackgroundColor="#23272A"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <converters:BoolToButtonTextConverter x:Key="BoolToButtonTextConverter" />
+    </ContentPage.Resources>
+    <Grid>
+        
+             <ScrollView>
+                 
+                <Grid>
+
+                   
+                    
+                <!-- Main Content -->
+                    <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="0, 0, 0, 50">
+                      <Border VerticalOptions="Start" Margin="0, 0, 0, 0">
+                         <Image Source="{Binding CurrentWorkout.ImageSource}" HeightRequest="300" WidthRequest="300" Aspect="AspectFill"/>
+                      </Border>
+                      <Label Text="{Binding CurrentWorkout.Name}" 
+                               FontSize="45" 
+                               FontAttributes="Bold"
+                               HorizontalTextAlignment="Center"
+                               Margin="5, 5, 5, 5"
+                             HorizontalOptions="CenterAndExpand"/>
+                        
+                      <Grid  HorizontalOptions="CenterAndExpand" Margin="5, 5, 5, 5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <HorizontalStackLayout HorizontalOptions="FillAndExpand" 
+                                       BackgroundColor="Transparent"
+                                       Grid.Column="0"
+                                       Margin="0, 0, 0, 0">
+                            <Label Text="Current Set: " FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                            <Label Text="{Binding CurrentSet}" FontSize="50" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout HorizontalOptions="FillAndExpand" 
+                                       BackgroundColor="Transparent"  
+                                       Grid.Column="1"
+                                       Margin="50, 0, 0, 0">
+                            <Label Text="Reps: " FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                            <Label Text="{Binding CurrentWorkout.Reps}" FontSize="50" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
+                        </HorizontalStackLayout>
+
+                    </Grid>
+                      <Button 
+                            Command="{Binding FinishCommand}" 
+                            VerticalOptions="End" 
+                            HorizontalOptions="Center"
+                            Margin="0, 25, 0, 0"
+                            BackgroundColor="#5865F2"
+                            ImageSource="finish24.png"
+                            HeightRequest="50"
+                            WidthRequest="50"/>
+            
+                    </StackLayout>
+                </Grid>
+             </ScrollView>
+        <!-- Timer Pop-up -->
+        <Frame IsVisible="{Binding IsResting}" BackgroundColor="Transparent" BorderColor="Black">
+            <Frame BackgroundColor="Black" 
+               CornerRadius="10"
+               VerticalOptions="CenterAndExpand" 
+               HorizontalOptions="FillAndExpand"
+               Padding="35" Margin="10">
+
+
+                <!-- Customize the content of the timer pop-up -->
+                <StackLayout>
+                    <Label Text="Rest Timer" FontSize="20" HorizontalOptions="Center"/>
+                    <Label Text="{Binding ElapsedTime}" FontSize="30" HorizontalOptions="Center"/>
+
+                    <HorizontalStackLayout HorizontalOptions="Center">
+                        <Button Text="{Binding IsRunning, Converter={StaticResource BoolToButtonTextConverter}}" 
+                    Command="{Binding StartPauseCommand}" 
+                    HorizontalOptions="CenterAndExpand" 
+                    Margin="10"/>
+                        <Button Text="Reset" Command="{Binding ResetCommand}" 
+                    HorizontalOptions="CenterAndExpand" 
+                    Margin="10"/>
+                        <Button Text="Stop" Command="{Binding StopCommand}" 
+                    HorizontalOptions="CenterAndExpand" 
+                    Margin="10"/>
+                    </HorizontalStackLayout>
+                </StackLayout>
+            </Frame>
+        </Frame>
+
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+
+            <Button VerticalOptions="Start"
+            Margin="10"
+            BackgroundColor="Transparent"
+            Command="{Binding ExitPlayCommand}"
+            Grid.Row="0"
+            Grid.Column="0"
+            ImageSource="close.png"/>
+
+            <Button HorizontalOptions="End"
+            Margin="10"  
+            BackgroundColor="Transparent"
+            Command="{Binding ResetSessionCommand}"
+            Grid.Row="0"
+            Grid.Column="2"
+            ImageSource="reload24.png"/>
+        </Grid>
+    </Grid>
+</ContentPage>

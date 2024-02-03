@@ -19,11 +19,13 @@ namespace WorkoutApp
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("AnekLatin_Condensed-SemiBold.ttf", "AnekSemibold");
+                    fonts.AddFont("AnekLatin-Bold.ttf", "AnekBold");
                 });
             builder.Services.AddSingleton<localdbDa>();
-
-            builder.Services.AddTransient<TargetsContent>();
-            builder.Services.AddTransient<TargetsContentViewModel>();
+            
+            builder.Services.AddSingleton<TargetsContent>();
+            builder.Services.AddSingleton<TargetsContentViewModel>();
 
             builder.Services.AddTransient<AddTargetViewModel>();
             builder.Services.AddTransient<AddTarget>();
@@ -33,6 +35,9 @@ namespace WorkoutApp
 
             builder.Services.AddTransient<WorkoutContentViewModel>();
             builder.Services.AddTransient<WorkoutContent>();
+
+            builder.Services.AddTransient<PlayWorkout>();
+            builder.Services.AddTransient<PlayWorkoutViewModel>();
 #if DEBUG
     		builder.Logging.AddDebug();
 #endif

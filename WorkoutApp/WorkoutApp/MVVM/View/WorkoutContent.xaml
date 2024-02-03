@@ -5,25 +5,44 @@
              x:Class="WorkoutApp.MVVM.View.WorkoutContent"
              x:DataType="viewmodel:WorkoutContentViewModel"           
              Shell.NavBarIsVisible="False"
-             Background="#0E1011">
+             BackgroundColor="#23272A">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Workout.Name}" FontSize="Title" HorizontalOptions="CenterAndExpand" Margin="10, 75" TextColor="#e8f3ee" />
-
-            <TableView Intent="Form">
-                <TableRoot>
+            <Label Text="{Binding Workout.Name}" FontSize="Title" HorizontalOptions="CenterAndExpand" Margin="10, 25" TextColor="#e8f3ee" />
+            <StackLayout>
+                <Image Source="{Binding ImageSource}" 
+                       Aspect="AspectFill" 
+                       MaximumHeightRequest="300" 
+                       MaximumWidthRequest="300" HorizontalOptions="Center" />
+                
+            </StackLayout>
+            <TableView Intent="Form" HasUnevenRows="False">
+                <TableRoot >
                     <TableSection>
-                        <EntryCell Text="{Binding Workout.Name}"  />
-                        <EntryCell Text ="{Binding Workout.Description}" />
-                        <EntryCell Text ="{Binding Workout.Sets}" />
-                        <EntryCell Text ="{Binding Workout.Reps}" />
+                        <EntryCell Text="{Binding Workout.Name}"   Label="Workout Name: "/>
+                        <EntryCell Text ="{Binding Workout.Reps}" Label="Repetition: "/>
+                        <EntryCell Text ="{Binding Workout.Sets}" Label="Sets: "/>
+                        <EntryCell Text ="{Binding Workout.RestTime}" Label="Rest Time (seconds): "/>
                     </TableSection>
                 </TableRoot>
             </TableView>
-            <Button VerticalOptions="EndAndExpand"
-                 Margin="10" Text="Save Information" 
-                 TextColor="#e8f3ee" 
-                 Command="{Binding SaveInfoCommand}"/>
-        </StackLayout>
+
+            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+                <Button Text="Upload Image" 
+                        Margin="10" 
+                        TextColor="White" 
+                        Command="{Binding UploadImageCommand}" 
+                        BackgroundColor="#5865F2"/>
+                
+                <Button    
+                        Margin="10" 
+                        Text="Save Workout" 
+                        TextColor="White" 
+                        Command="{Binding SaveInfoCommand}"
+                        BackgroundColor="#5865F2"/>
+                
+                
+            </HorizontalStackLayout>
+             </StackLayout>
     </ContentPage.Content>
 </ContentPage>
