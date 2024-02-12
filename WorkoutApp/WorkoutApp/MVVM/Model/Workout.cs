@@ -16,7 +16,7 @@ namespace WorkoutApp.MVVM.Model
         public int WorkoutTargetId { get; set; }
 
         [Column("workout_description")]
-        public string Description { get; set; }
+        public string Description { get; set; } = "dotnet_bot.png";
 
         [Column("imgsrc")]
         public ImageSource ImageSource { get => Description;}

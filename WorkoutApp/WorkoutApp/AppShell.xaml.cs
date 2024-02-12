@@ -16,9 +16,9 @@ namespace WorkoutApp
             Routing.RegisterRoute(nameof(PlayWorkout), typeof(PlayWorkout));
         }
 
-        //protected override bool OnBackButtonPressed()
-        //{
-        //    return false;           
-        //}
+        protected override bool OnBackButtonPressed()
+        {
+            return false;
+        }
     }
 }

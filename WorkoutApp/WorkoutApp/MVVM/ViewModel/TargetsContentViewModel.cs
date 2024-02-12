@@ -80,6 +80,11 @@ namespace WorkoutApp.MVVM.ViewModel
             {
                 foreach (Workout workout in wo)
                 {
+                    if (!string.IsNullOrEmpty(workout.Description))
+                    {
+                        DeleteImageFile(workout.Description);
+                    }
+
                     await this.localdbDa.Delete(workout);
                 }
             }
@@ -98,8 +103,8 @@ namespace WorkoutApp.MVVM.ViewModel
                     return;
                 }
 
-                wt.Workouts = new(await localdbDa.GetWorkoutsById(wt.TargetId));
-                
+                wt.Workouts = new(await Task.Run(() => localdbDa.GetWorkoutsById(wt.TargetId)));
+
                 await Shell.Current.GoToAsync(nameof(WorkoutList), true, new Dictionary<string, object>
                 {
                     {"Workout", wt.Workouts },
@@ -109,6 +114,22 @@ namespace WorkoutApp.MVVM.ViewModel
             catch(Exception ex) 
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.Message , "OK");
+            }
+        }
+
+        private void DeleteImageFile(string imagePath)
+        {
+            try
+            {
+                // Delete the image file from local storage
+                if (File.Exists(imagePath))
+                {
+                    File.Delete(imagePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exception if needed
             }
         }
     }

@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"
              x:Class="WorkoutApp.MVVM.View.Content.AddTarget"
+             xmlns:ui="clr-namespace:Xe.AcrylicView;assembly=Xe.AcrylicView"
              x:DataType="viewmodel:AddTargetViewModel"
              Shell.NavBarIsVisible="False"
              BackgroundColor="#23272A">
-    
-    <StackLayout>
+    <AbsoluteLayout>
+        <Image Source="guts.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"/>
+        <StackLayout Margin="0 ,20, 0, 0"  AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -36,22 +38,30 @@
                     Grid.Row="0"
                     Grid.Column="2"
                     ImageSource="done.png"/>
-
+            
+                <ui:AcrylicView Grid.Row="1" Grid.Column="1" CornerRadius="15" EffectStyle="Dark">
             <Label Text="{Binding WorkoutTarget.Name}" 
                    FontSize="Title" 
-                   HorizontalOptions="CenterAndExpand" 
-                   Margin="10" 
-                   TextColor="#e8f3ee" 
-                   Grid.Row="1"
-                   Grid.Column="1"/>
-        </Grid>
-        <TableView Intent="Form">
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   Margin="10"                           
+                   TextColor="#e8f3ee" />
+                </ui:AcrylicView>
+            </Grid>
+        
+            <Grid HeightRequest="70" Margin="10,10,10,10">
+            <ui:AcrylicView CornerRadius="15" EffectStyle="Dark">
+                <TableView Intent="Form" MaximumHeightRequest="1" VerticalOptions="Start">
+            
             <TableRoot>
                 <TableSection>
-                    <EntryCell Text="{Binding WorkoutTarget.Name}"  />
+                        <EntryCell Text="{Binding WorkoutTarget.Name}" Label="Target Name: "/>
                     
                 </TableSection>
             </TableRoot>
         </TableView>
-    </StackLayout>
+            </ui:AcrylicView>
+            </Grid>
+        </StackLayout>
+    </AbsoluteLayout>
 </ContentPage>

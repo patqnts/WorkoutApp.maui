@@ -18,5 +18,8 @@ namespace WorkoutApp.MVVM.Model
 
         [Column("rest_intervals")]
         public int RestIntervals { get; set; } = -1;
+
+        [Column("date_modified")]
+        public DateTime DateModified { get; set; }
     }
 }

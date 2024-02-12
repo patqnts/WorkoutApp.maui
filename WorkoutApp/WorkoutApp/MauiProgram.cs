@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Maui;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
 using WorkoutApp.Dal;
 using WorkoutApp.MVVM.View;
 using WorkoutApp.MVVM.View.Content;
 using WorkoutApp.MVVM.ViewModel;
+using Xe.AcrylicView;
 
 namespace WorkoutApp
 {
@@ -14,7 +16,23 @@ namespace WorkoutApp
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseAcrylicView()
                 .UseMauiCommunityToolkit()
+                .ConfigureLifecycleEvents(events =>
+                {
+#if ANDROID
+                events.AddAndroid(android => android.OnCreate((activity, bundle) => MakeStatusBarTranslucent(activity)));
+
+                static void MakeStatusBarTranslucent(Android.App.Activity activity)
+                {
+                    activity.Window.SetFlags(Android.Views.WindowManagerFlags.LayoutNoLimits, Android.Views.WindowManagerFlags.LayoutNoLimits);
+
+                    activity.Window.ClearFlags(Android.Views.WindowManagerFlags.TranslucentStatus);
+
+                    activity.Window.SetStatusBarColor(Android.Graphics.Color.Transparent);
+                }
+#endif
+                })
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -22,6 +40,7 @@ namespace WorkoutApp
                     fonts.AddFont("AnekLatin_Condensed-SemiBold.ttf", "AnekSemibold");
                     fonts.AddFont("AnekLatin-Bold.ttf", "AnekBold");
                 });
+
             builder.Services.AddSingleton<localdbDa>();
             
             builder.Services.AddSingleton<TargetsContent>();

@@ -5,55 +5,61 @@
              xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"
              xmlns:converters="clr-namespace:WorkoutApp.MVVM.Converter"
              x:DataType="viewmodel:PlayWorkoutViewModel"
+             xmlns:ui="clr-namespace:Xe.AcrylicView;assembly=Xe.AcrylicView"
              Title="PlayWorkout"
              BackgroundColor="#23272A"
              Shell.NavBarIsVisible="False">
     <ContentPage.Resources>
         <converters:BoolToButtonTextConverter x:Key="BoolToButtonTextConverter" />
     </ContentPage.Resources>
-    <Grid>
-        
-             <ScrollView>
-                 
-                <Grid>
+    <AbsoluteLayout>
+        <Image Source="guts.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"/>
+        <Grid AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" >
+            <ScrollView VerticalScrollBarVisibility="Never">
 
-                   
-                    
+                <Grid>
                 <!-- Main Content -->
                     <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Margin="0, 0, 0, 50">
-                      <Border VerticalOptions="Start" Margin="0, 0, 0, 0">
+                      <Border VerticalOptions="Start" Margin="0, 0, 0, 0" StrokeThickness="0">
                          <Image Source="{Binding CurrentWorkout.ImageSource}" HeightRequest="300" WidthRequest="300" Aspect="AspectFill"/>
                       </Border>
+
+                        <ui:AcrylicView CornerRadius="15" Margin="10,5,10,5" EffectStyle="Dark">
                       <Label Text="{Binding CurrentWorkout.Name}" 
                                FontSize="45" 
                                FontAttributes="Bold"
                                HorizontalTextAlignment="Center"
                                Margin="5, 5, 5, 5"
                              HorizontalOptions="CenterAndExpand"/>
-                        
+                        </ui:AcrylicView>
+                    
                       <Grid  HorizontalOptions="CenterAndExpand" Margin="5, 5, 5, 5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
 
-                        <HorizontalStackLayout HorizontalOptions="FillAndExpand" 
-                                       BackgroundColor="Transparent"
-                                       Grid.Column="0"
-                                       Margin="0, 0, 0, 0">
+
+                            <ui:AcrylicView CornerRadius="15" EffectStyle="Dark" Grid.Column="0">
+                                <HorizontalStackLayout 
+                                       BackgroundColor="Transparent" 
+                                       Margin="10,5,10,5">
+                                    
                             <Label Text="Current Set: " FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
                             <Label Text="{Binding CurrentSet}" FontSize="50" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
+                            </ui:AcrylicView>
 
-                        <HorizontalStackLayout HorizontalOptions="FillAndExpand" 
-                                       BackgroundColor="Transparent"  
-                                       Grid.Column="1"
-                                       Margin="50, 0, 0, 0">
+                            <ui:AcrylicView CornerRadius="15" EffectStyle="Dark" Grid.Column="1">
+                                <HorizontalStackLayout HorizontalOptions="FillAndExpand" 
+                                       BackgroundColor="Transparent"                            
+                                       Margin="10,5,10,5">
                             <Label Text="Reps: " FontSize="Large" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
                             <Label Text="{Binding CurrentWorkout.Reps}" FontSize="50" HorizontalOptions="CenterAndExpand" VerticalOptions="Center"/>
                         </HorizontalStackLayout>
+                            </ui:AcrylicView>
 
-                    </Grid>
+                        </Grid>
                       <Button 
                             Command="{Binding FinishCommand}" 
                             VerticalOptions="End" 
@@ -68,37 +74,54 @@
                 </Grid>
              </ScrollView>
         <!-- Timer Pop-up -->
-        <Frame IsVisible="{Binding IsResting}" BackgroundColor="Transparent" BorderColor="Black">
-            <Frame BackgroundColor="Black" 
+            <ui:AcrylicView IsVisible="{Binding IsResting}" EffectStyle="Dark">
+                
+                
+            <Frame BackgroundColor="Transparent" 
                CornerRadius="10"
                VerticalOptions="CenterAndExpand" 
                HorizontalOptions="FillAndExpand"
-               Padding="35" Margin="10">
+               Padding="0" 
+               BorderColor="Transparent"
+               Margin="0,0,0,65">
 
 
                 <!-- Customize the content of the timer pop-up -->
                 <StackLayout>
-                    <Label Text="Rest Timer" FontSize="20" HorizontalOptions="Center"/>
-                    <Label Text="{Binding ElapsedTime}" FontSize="30" HorizontalOptions="Center"/>
+                    <Label Text="Rest Timer" FontSize="50" HorizontalOptions="Center" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                    <Label Text="{Binding ElapsedTime}" FontSize="50" HorizontalOptions="Center" />
 
-                    <HorizontalStackLayout HorizontalOptions="Center">
-                        <Button Text="{Binding IsRunning, Converter={StaticResource BoolToButtonTextConverter}}" 
-                    Command="{Binding StartPauseCommand}" 
-                    HorizontalOptions="CenterAndExpand" 
-                    Margin="10"/>
-                        <Button Text="Reset" Command="{Binding ResetCommand}" 
-                    HorizontalOptions="CenterAndExpand" 
-                    Margin="10"/>
-                        <Button Text="Stop" Command="{Binding StopCommand}" 
-                    HorizontalOptions="CenterAndExpand" 
-                    Margin="10"/>
-                    </HorizontalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="CenterAndExpand" Margin="0, 45,0,0">
+                        <Button Text="{Binding IsRunning, Converter={StaticResource BoolToButtonTextConverter}}"
+                                BackgroundColor="#5865F2"
+                                TextColor="White"
+                                FontAttributes="Bold"
+                                Command="{Binding StartPauseCommand}" 
+                                HorizontalOptions="CenterAndExpand" 
+                                Margin="10"/>
+                        <Button Text="Reset" 
+                                Command="{Binding ResetCommand}" 
+                                HorizontalOptions="CenterAndExpand" 
+                                Margin="10"
+                                BackgroundColor="Orange"
+                                TextColor="White"
+                                FontAttributes="Bold"/>
+                        <Button Text="Stop" 
+                                Command="{Binding StopCommand}" 
+                                HorizontalOptions="CenterAndExpand" 
+                                Margin="10"
+                                BackgroundColor="#ED4245"
+                                TextColor="White"
+                                FontAttributes="Bold"/>                 
+                        </HorizontalStackLayout>
                 </StackLayout>
             </Frame>
-        </Frame>
+                
+           
+            </ui:AcrylicView>
 
 
-        <Grid>
+            <Grid Margin="0,25,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -127,4 +150,5 @@
             ImageSource="reload24.png"/>
         </Grid>
     </Grid>
+    </AbsoluteLayout>
 </ContentPage>

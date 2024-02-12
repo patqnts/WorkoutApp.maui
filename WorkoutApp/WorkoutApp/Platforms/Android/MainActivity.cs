@@ -9,11 +9,7 @@ namespace WorkoutApp
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            // Set status bar color
-            Window.SetStatusBarColor(Android.Graphics.Color.ParseColor("#23272A"));
-
-            // Set navigation bar color
-            Window.SetNavigationBarColor(Android.Graphics.Color.ParseColor("#23272A"));
+         
 
             base.OnCreate(savedInstanceState);
         }

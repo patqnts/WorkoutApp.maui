@@ -36,6 +36,8 @@ namespace WorkoutApp.MVVM.ViewModel
         [RelayCommand]
         private async Task SaveTarget()
         {
+
+            WorkoutTarget.DateModified = DateTime.Now;
             await localdb.CreateTarget(WorkoutTarget);
 
             await GoBack();
@@ -50,7 +52,8 @@ namespace WorkoutApp.MVVM.ViewModel
             {
                 WorkoutTarget.RestIntervals = wo.Count;
             }
-           
+
+            WorkoutTarget.DateModified = DateTime.Now;
             await localdb.UpdateTarget(WorkoutTarget);
 
             await GoBack();

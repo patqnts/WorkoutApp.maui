@@ -107,7 +107,11 @@ namespace WorkoutApp.MVVM.ViewModel
                         // Move to the next workout
                         CurrentSet = 1;
                         CurrentWorkoutIndex++;                     
-                        CurrentWorkout = Workout[CurrentWorkoutIndex];  
+                        CurrentWorkout = Workout[CurrentWorkoutIndex];
+                        if (string.IsNullOrEmpty(CurrentWorkout.Description))
+                        {
+                            CurrentWorkout.Description = "dotnet_bot.png";
+                        }
                     }
                     else
                     {
@@ -129,15 +133,16 @@ namespace WorkoutApp.MVVM.ViewModel
         [RelayCommand]
         async Task ExitPlay()
         {
-            WorkoutTarget.Workouts = new(await localdb.GetWorkoutsById(WorkoutTarget.TargetId));
+            //WorkoutTarget.Workouts = new(await localdb.GetWorkoutsById(WorkoutTarget.TargetId));
 
-            await Shell.Current.Navigation.PopAsync(true);
             
-            await Shell.Current.GoToAsync(nameof(WorkoutList), true, new Dictionary<string, object>
-                {
-                    {"Workout", WorkoutTarget.Workouts },
-                    {"WorkoutTarget", WorkoutTarget}
-                });
+
+            //await Shell.Current.GoToAsync(nameof(WorkoutList), true, new Dictionary<string, object>
+            //    {
+            //        {"Workout", WorkoutTarget.Workouts },
+            //        {"WorkoutTarget", WorkoutTarget}
+            //    });
+            await Shell.Current.GoToAsync("..");
         }
 
         [RelayCommand]

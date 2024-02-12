@@ -38,6 +38,11 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-android|AnyCPU'">
+	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+	  <DebugSymbols>True</DebugSymbols>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#0E1011" />
@@ -59,18 +64,23 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\AnekLatin-Bold.ttf" />
 	  <None Remove="Resources\Fonts\AnekLatin_Condensed-SemiBold.ttf" />
+	  <None Remove="Resources\Images\bg.jpg" />
+	  <None Remove="Resources\Images\blackbg.jpg" />
 	  <None Remove="Resources\Images\close.png" />
 	  <None Remove="Resources\Images\delete.png" />
 	  <None Remove="Resources\Images\done.png" />
 	  <None Remove="Resources\Images\EDIT.png" />
 	  <None Remove="Resources\Images\edit1.png" />
 	  <None Remove="Resources\Images\finish24.png" />
+	  <None Remove="Resources\Images\guts.jpg" />
 	  <None Remove="Resources\Images\plus24.png" />
 	  <None Remove="Resources\Images\reload24.png" />
 	  <None Remove="Resources\Images\start8.png" />
+	  <None Remove="Resources\Images\zelda.jpg" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AcrylicView.Maui" Version="2.1.1" />
 		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
@@ -101,5 +111,12 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>
+
+	<PropertyGroup Condition="$(TargetFramework.Contains('-android')) and '$(Configuration)' == 'Release'">
+		<AndroidSigningKeyStore>Demo.keystore</AndroidSigningKeyStore>
+		<AndroidSigningKeyAlias>DemoAppKey</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>password</AndroidSigningKeyPass>
+		<AndroidSigningStorePass>password</AndroidSigningStorePass>
+	</PropertyGroup>
 
 </Project>

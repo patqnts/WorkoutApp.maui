@@ -2,22 +2,35 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"
+             xmlns:ui="clr-namespace:Xe.AcrylicView;assembly=Xe.AcrylicView"
              x:Class="WorkoutApp.MVVM.View.WorkoutContent"
              x:DataType="viewmodel:WorkoutContentViewModel"           
              Shell.NavBarIsVisible="False"
              BackgroundColor="#23272A">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="{Binding Workout.Name}" FontSize="Title" HorizontalOptions="CenterAndExpand" Margin="10, 25" TextColor="#e8f3ee" />
-            <StackLayout>
-                <Image Source="{Binding ImageSource}" 
-                       Aspect="AspectFill" 
-                       MaximumHeightRequest="300" 
-                       MaximumWidthRequest="300" HorizontalOptions="Center" />
+        <AbsoluteLayout>
+            <Image Source="guts.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"/>
+            <StackLayout Margin="0 ,20, 0, 35" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
                 
-            </StackLayout>
+                
+            <Label Text="{Binding Workout.Name}" 
+                   FontSize="Title"  
+                   Margin="10, 25" 
+                   TextColor="#e8f3ee" 
+                   HorizontalTextAlignment="Center" 
+                   VerticalOptions="Center"/>
+
+
+                <ui:AcrylicView CornerRadius="15" EffectStyle="Dark"  MaximumHeightRequest="300" MaximumWidthRequest="300">
+                    <Image Source="{Binding ImageSource}" 
+                           Aspect="AspectFill"/>
+                </ui:AcrylicView>
+
+
+            <Grid  Margin="10,10,10,10">
+            <ui:AcrylicView CornerRadius="15" EffectStyle="Dark">
             <TableView Intent="Form" HasUnevenRows="False">
-                <TableRoot >
+                <TableRoot>
                     <TableSection>
                         <EntryCell Text="{Binding Workout.Name}"   Label="Workout Name: "/>
                         <EntryCell Text ="{Binding Workout.Reps}" Label="Repetition: "/>
@@ -26,23 +39,28 @@
                     </TableSection>
                 </TableRoot>
             </TableView>
+            </ui:AcrylicView>
+            </Grid>
+                
+             </StackLayout>
 
-            <HorizontalStackLayout HorizontalOptions="CenterAndExpand">
+            <Grid VerticalOptions="EndAndExpand" HorizontalOptions="Center" Margin="0, 0, 0, 30" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1">
+                <HorizontalStackLayout>
                 <Button Text="Upload Image" 
                         Margin="10" 
                         TextColor="White" 
                         Command="{Binding UploadImageCommand}" 
                         BackgroundColor="#5865F2"/>
-                
+
                 <Button    
                         Margin="10" 
                         Text="Save Workout" 
                         TextColor="White" 
                         Command="{Binding SaveInfoCommand}"
                         BackgroundColor="#5865F2"/>
-                
-                
             </HorizontalStackLayout>
-             </StackLayout>
+            </Grid>
+        </AbsoluteLayout>
     </ContentPage.Content>
+    
 </ContentPage>

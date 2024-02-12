@@ -5,92 +5,89 @@
              Title="TargetsContent"
              xmlns:models="clr-namespace:WorkoutApp.MVVM.Model"
              xmlns:localfont="clr-namespace:WorkoutApp"
-             xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"    
+             xmlns:ui="clr-namespace:Xe.AcrylicView;assembly=Xe.AcrylicView"
+             xmlns:viewmodel="clr-namespace:WorkoutApp.MVVM.ViewModel"   
+             xmlns:mct="clr-namespace:CommunityToolkit.Maui.Behaviors;assembly=CommunityToolkit.Maui"
              x:DataType="viewmodel:TargetsContentViewModel"
-             Shell.NavBarIsVisible="False"
-             Shell.BackgroundColor="#23272A"
-             BackgroundColor="#23272A">
+             Shell.NavBarIsVisible="False">
+    
     <AbsoluteLayout>
-        <ScrollView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" VerticalScrollBarVisibility="Never">
-            <VerticalStackLayout>
-                <Label Text="Workout" Margin="10" Padding="5,5" TextColor="#FFFFFF" FontFamily="AnekBold" FontSize="55"/>
-                    <CollectionView ItemsSource="{Binding WorkoutTarget}" SelectionMode="None">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate x:DataType="{x:Type models:WorkoutTarget}">
+        <Image Source="guts.jpg" Aspect="AspectFill" AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1"/>
+
+        <ui:AcrylicView AbsoluteLayout.LayoutFlags="All" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" EffectStyle="Dark">
+            <Grid >
+                <!-- RowDefinitions -->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Text="Workout" Margin="10" Padding="5,5" TextColor="#FFFFFF" FontFamily="AnekBold" FontSize="55" Grid.Row="0"/>
+                <CollectionView ItemsSource="{Binding WorkoutTarget}" SelectionMode="None" Grid.Row="1">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Type models:WorkoutTarget}">
                             <SwipeView>
                                 <SwipeView.RightItems>
-                                        <SwipeItems>
-                                            <SwipeItemView  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=DeleteTargetCommand}"
+                                    <SwipeItems>
+
+                                        <SwipeItemView  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=DeleteTargetCommand}"
                                                             CommandParameter="{Binding .}"
                                                             VerticalOptions="CenterAndExpand"
-                                                            Margin="10">
-                                            <Frame BorderColor="Transparent" BackgroundColor="#ED4245" MaximumWidthRequest="75" MaximumHeightRequest="70">
+                                                            Margin="5">
+                                            <ui:AcrylicView MaximumHeightRequest="100" MaximumWidthRequest="100" EffectStyle="Custom" TintColor="Red" TintOpacity=".1" CornerRadius="25">
+                                                <Frame BorderColor="Transparent" BackgroundColor="Transparent" MaximumWidthRequest="70" MaximumHeightRequest="70">
                                                     <Image Source="delete.png" />
                                                 </Frame>
-                                                
-                                            </SwipeItemView>
+                                            </ui:AcrylicView>
+                                        </SwipeItemView>
 
-                                            <SwipeItemView  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=AddTargetCommand}"
+                                        <SwipeItemView  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=AddTargetCommand}"
                                                             CommandParameter="{Binding .}"
-                                                            VerticalOptions="CenterAndExpand">
-                                            <Frame BorderColor="Transparent" BackgroundColor="#5865F2" MaximumWidthRequest="75" MaximumHeightRequest="70">
+                                                            VerticalOptions="CenterAndExpand"
+                                                            Margin="5">
+                                            <ui:AcrylicView MaximumHeightRequest="100" MaximumWidthRequest="100" EffectStyle="Custom" TintColor="Blue" TintOpacity=".15" CornerRadius="25">
+                                                <Frame BorderColor="Transparent" BackgroundColor="Transparent" MaximumWidthRequest="70" MaximumHeightRequest="70">
                                                     <Image Source="edit.png" />
                                                 </Frame>
-                                            </SwipeItemView>
-                                        </SwipeItems>
-                                        </SwipeView.RightItems>
+                                            </ui:AcrylicView>
+                                        </SwipeItemView>
+                                    </SwipeItems>
 
-                                    <Grid>
-                                    <Frame BackgroundColor="LightBlue" 
-                                           Margin="5,2"                                
-                                           CornerRadius="5" 
-                                           MinimumHeightRequest="50"
-                                           BorderColor="Transparent">
-                                        <Grid VerticalOptions="Center">
+                                </SwipeView.RightItems>
+                                <Grid Margin="10,5,10,5"  HeightRequest="125">
+                                    <Frame BackgroundColor="Transparent" CornerRadius="15" BorderColor="White">
+                                        <Grid VerticalOptions="Center" Margin="10,5,5,5">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
                                             </Grid.RowDefinitions>
-                                            
-                                            <Label Text="{Binding Name}"                                                
-                                                   FontSize="Title" 
-                                                   Grid.Row="0" 
-                                                   TextColor="DarkBlue" 
-                                                   FontAttributes="Bold"/>
-                                            
-                                            <Label Text="{Binding RestIntervals, StringFormat='Total Workouts: {0}'}" 
-                                                   FontSize="Subtitle" 
-                                                   TextColor="DarkBlue" 
-                                                   Grid.Row="1"/>
+
+                                            <Label Text="{Binding Name}" FontSize="Title" Grid.Row="0" TextColor="White" FontAttributes="Bold"/>
+                                            <Label Text="{Binding RestIntervals, StringFormat='Total Workouts: {0}'}" FontSize="Subtitle" TextColor="White" Grid.Row="1"/>
+
                                         </Grid>
-                                        
-                                            <Frame.GestureRecognizers>
-                                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=SelectTargetWorkoutCommand}"
-                                             CommandParameter="{Binding .}"/>
-                                            </Frame.GestureRecognizers>
-                                        </Frame>
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=SelectTargetWorkoutCommand}"
+                                                                  CommandParameter="{Binding .}"/>
+                                        </Frame.GestureRecognizers>
 
+                                    </Frame>
+                                    <Grid HorizontalOptions="End">
+                                        <Label Text="{Binding DateModified}" Margin="5,5,10,5"/>
                                     </Grid>
+                                </Grid>
+                            </SwipeView>
 
-                                </SwipeView>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                <BoxView HeightRequest="75" BackgroundColor="Transparent" />
-                </VerticalStackLayout>
-            
-        </ScrollView>
+                        </DataTemplate>
+                        
+                    </CollectionView.ItemTemplate>
+                    
+                </CollectionView>
+                <BoxView HeightRequest="50" BackgroundColor="Transparent" Grid.Row="2" />
+            </Grid>
 
-        <BoxView AbsoluteLayout.LayoutFlags="WidthProportional,PositionProportional"
-                 AbsoluteLayout.LayoutBounds="0,1,1,-1"
-                 HeightRequest="110">
-            <BoxView.Background>
-                <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
-                    <GradientStop Color="#23272A" Offset="0.0"/>
-                    <GradientStop Color="#00000000" Offset="1.0"/>
-                </LinearGradientBrush>
-            </BoxView.Background>
-        </BoxView>
+        </ui:AcrylicView>
 
         <Button Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:TargetsContentViewModel}}, Path=AddTargetCommand}"              
                 AbsoluteLayout.LayoutFlags="PositionProportional"
@@ -103,4 +100,5 @@
                 MaximumHeightRequest="50"              
                 ImageSource="plus24.png"/>
     </AbsoluteLayout>
+    
 </ContentPage>
