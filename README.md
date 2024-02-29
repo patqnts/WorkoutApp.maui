@@ -1,6 +1,8 @@
 # WorkoutApp.maui
 Realtime Workout Planner and Execution
 
+Keep track of your sets and timer.
+
 Create Target Workout
 <br/><img src="https://github.com/patqnts/WorkoutApp.maui/assets/113108715/234a150f-1548-4d3f-9652-32962cff26f0" width="400"/>
 
